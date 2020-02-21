@@ -34,7 +34,7 @@ phases:
 #      - dotnet test --no-build --logger "junit;LogFilePath=../../${BUILD_ARTIFACTS_PATH}/TestResults.xml" --verbosity:normal
 
 #      - echo Generating coverage report...
-      - ~/.nuget/packages/jetbrains.dotcover.dotnetclitool/$DOTCOVER_VERSION/tools/dotCover.sh dotnet --output=../$BUILD_ARTIFACTS_PATH/CoverageReport.html --reportType=HTML -- test --no-build --logger "junit;LogFilePath=../../${BUILD_ARTIFACTS_PATH}/TestResults.xml" --verbosity:normal
+      - ~/.nuget/packages/jetbrains.dotcover.dotnetclitool/$DOTCOVER_VERSION/tools/dotCover.sh dotnet --output=../$BUILD_ARTIFACTS_PATH/CoverageReport.html --reportType=HTML -- test --no-build --logger "junit;LogFilePath=../${BUILD_ARTIFACTS_PATH}/TestResults.xml" --verbosity:normal
 
       - echo Building the Docker image...
       - cd Host
