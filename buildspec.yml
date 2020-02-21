@@ -30,11 +30,11 @@ phases:
       - dotnet build
 
       - echo Running unit tests...
-      - TEST_RESULT_PATH="TestResults/${REPOSITORY_NAME}_${BASE_VERSION}_${CODEBUILD_BUILD_NUMBER}_${COMMIT_SHORT_HASH}"
-      - dotnet test --no-build --logger "junit;LogFilePath=${TEST_RESULT_PATH}/TestResults.xml" --verbosity:normal
+      - BUILD_ARTIFACTS_PATH="${REPOSITORY_NAME}_${BASE_VERSION}_${CODEBUILD_BUILD_NUMBER}_${COMMIT_SHORT_HASH}"
+      - dotnet test --no-build --logger "junit;LogFilePath=../../${BUILD_ARTIFACTS_PATH}/TestResults.xml" --verbosity:normal
 
       - echo Generating coverage report...
-      - ~/.nuget/packages/jetbrains.dotcover.dotnetclitool/$DOTCOVER_VERSION/tools/dotCover.sh dotnet --output=UnitTests/$TEST_RESULT_PATH/CoverageReport.html --reportType=HTML -- test
+      - ~/.nuget/packages/jetbrains.dotcover.dotnetclitool/$DOTCOVER_VERSION/tools/dotCover.sh dotnet --output=../$BUILD_ARTIFACTS_PATH/CoverageReport.html --reportType=HTML -- test
 
       - echo Building the Docker image...
       - cd Host
@@ -50,7 +50,7 @@ phases:
 reports:
   TestReports:
     files: # publisihing test results
-      - ./src/UnitTests/$TEST_RESULT_PATH/TestResults.xml
+      - ./$BUILD_ARTIFACTS_PATH/TestResults.xml
 artifacts:
   files: # publishing coverage report to S3
-    - ./src/UnitTests/TestResults/**/*
+    - ./$BUILD_ARTIFACTS_PATH/**/*
