@@ -31,9 +31,9 @@ phases:
 
       - echo Running unit tests...
       - BUILD_ARTIFACTS_PATH="${REPOSITORY_NAME}_${BASE_VERSION}_${CODEBUILD_BUILD_NUMBER}_${COMMIT_SHORT_HASH}"
-      - ~/.nuget/packages/jetbrains.dotcover.dotnetclitool/$DOTCOVER_VERSION/tools/dotCover.sh dotnet \
-          --output=../$BUILD_ARTIFACTS_PATH/CoverageReport.html \
-          --reportType=HTML \
+      - ~/.nuget/packages/jetbrains.dotcover.dotnetclitool/$DOTCOVER_VERSION/tools/dotCover.sh dotnet 
+          --output=../$BUILD_ARTIFACTS_PATH/CoverageReport.html 
+          --reportType=HTML 
           -- test --no-build --logger "junit;LogFilePath=../${BUILD_ARTIFACTS_PATH}/TestResults.xml" --verbosity:normal
 
       - echo Building the Docker image...
