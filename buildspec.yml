@@ -3,7 +3,7 @@ env:
   variables:
     DOTCOVER_VERSION: "2019.3.2"
     JUNITTESTLOGGER_VERSION: "1.1.0"
-	REPOSITORY_NAME: "PFCoreHelloWorld"
+    REPOSITORY_NAME: "PFCoreHelloWorld"
 phases:
   pre_build:
     commands:
