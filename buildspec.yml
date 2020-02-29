@@ -1,9 +1,9 @@
 version: 0.2
 env:
   variables:
-    BASE_VERSION: "0.1.0"
     DOTCOVER_VERSION: "2019.3.2"
     JUNITTESTLOGGER_VERSION: "1.1.0"
+	REPOSITORY_NAME: "PFCoreHelloWorld"
 phases:
   pre_build:
     commands:
@@ -29,8 +29,8 @@ phases:
       - dotnet build
 
       - echo Running unit tests...
-      - COMMIT_SHORT_HASH=$(printf "%.11s" $COMMIT_ID)
-      - BUILD_ARTIFACTS_PATH="${REPOSITORY_NAME}/${BASE_VERSION}_${CODEBUILD_BUILD_NUMBER}_${COMMIT_SHORT_HASH}"
+      - COMMIT_SHORT_HASH=$(printf "%.11s" $CODEBUILD_RESOLVED_SOURCE_VERSION)
+      - BUILD_ARTIFACTS_PATH="${REPOSITORY_NAME}/${CODEBUILD_BUILD_NUMBER}_${COMMIT_SHORT_HASH}"
       - ~/.nuget/packages/jetbrains.dotcover.dotnetclitool/$DOTCOVER_VERSION/tools/dotCover.sh dotnet 
           --output=../$BUILD_ARTIFACTS_PATH/CoverageReport.html 
           --reportType=HTML 
@@ -39,7 +39,7 @@ phases:
       - echo Building the Docker image...
       - cd Host
       - ECR_REPOSITORY=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPOSITORY_NAME
-      - IMAGE_TAG="${REPOSITORY_NAME}_$(echo $BRANCH_NAME | tr -s '/' '-')_${CODEBUILD_BUILD_NUMBER}_${COMMIT_SHORT_HASH}"
+      - IMAGE_TAG="${REPOSITORY_NAME}_$(echo $CODEBUILD_SOURCE_VERSION | tr -s '/' '-')_${CODEBUILD_BUILD_NUMBER}_${COMMIT_SHORT_HASH}"
       - docker build -t $ECR_REPOSITORY:$IMAGE_TAG -t $ECR_REPOSITORY:latest .
 
       - echo Publishing the Docker image...
