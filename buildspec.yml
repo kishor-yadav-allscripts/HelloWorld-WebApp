@@ -28,8 +28,8 @@ phases:
       - dotnet build
 
       - echo Running unit tests...
-	  - REPOSITORY_NAME=echo ${CODEBUILD_SRC_DIR##*/}
-	  - BRANCH_NAME=$(echo  ${CODEBUILD_WEBHOOK_TRIGGER#*/} | tr -s '/' '-')
+      - REPOSITORY_NAME=echo ${CODEBUILD_SRC_DIR##*/}
+      - BRANCH_NAME=$(echo  ${CODEBUILD_WEBHOOK_TRIGGER#*/} | tr -s '/' '-')
       - COMMIT_SHORT_HASH=$(printf "%.11s" $CODEBUILD_SOURCE_VERSION)
       - BUILD_ARTIFACTS_PATH="${REPOSITORY_NAME}/${CODEBUILD_BUILD_NUMBER}_${COMMIT_SHORT_HASH}"
       - ~/.nuget/packages/jetbrains.dotcover.dotnetclitool/$DOTCOVER_VERSION/tools/dotCover.sh dotnet 
