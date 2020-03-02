@@ -40,7 +40,7 @@ phases:
       - echo Building the Docker image...
       - cd Host
       - ECR_REPOSITORY=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPOSITORY_NAME
-      - IMAGE_TAG="${REPOSITORY_NAME}_$(BRANCH_NAME)_${CODEBUILD_BUILD_NUMBER}_${COMMIT_SHORT_HASH}"
+      - IMAGE_TAG="${REPOSITORY_NAME}_${BRANCH_NAME}_${CODEBUILD_BUILD_NUMBER}_${COMMIT_SHORT_HASH}"
       - docker build -t $ECR_REPOSITORY:$IMAGE_TAG -t $ECR_REPOSITORY:latest .
 
       - echo Publishing the Docker image...
