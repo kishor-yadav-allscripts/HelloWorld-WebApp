@@ -50,7 +50,7 @@ phases:
       - echo Done
 reports:
   TestReports:
-    files: # publisihing test results
+    files: # publisihing test results 
       - ./$BUILD_ARTIFACTS_PATH/TestResults.xml
 artifacts:
   files: # publishing coverage report to S3
